@@ -8,6 +8,8 @@ TCP-Jersey [1] is a variant of TCP, It makes TCP to perform better in wireless a
 by differentiating the packet losses caused by network congestions from the losses caused by wireless link errors. This repository
 provides an implementation of TCP-Jersey in ns-3 [2].
 
+You can also find pseudocode for TCP-Jersey [here](https://github.com/ShefaliGups11/Implementation-of-TCP-Jersey-in-ns-3/wiki/TCP-Jersey).
+
 ### References:
 
 [1] Xu, Kai, Ye Tian, and Nirwan Ansari. "TCP-Jersey for wireless IP communications." IEEE Journal on selected areas in communications 22.4 (2004): 747-756.
