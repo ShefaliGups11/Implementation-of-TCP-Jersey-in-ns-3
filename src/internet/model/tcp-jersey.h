@@ -30,8 +30,7 @@
  * US Department of Defense (DoD), and ITTC at The University of Kansas.
  */
 
-#ifndef TCP_WESTWOOD_H
-#define TCP_WESTWOOD_H
+
 
 #include "tcp-congestion-ops.h"
 #include "ns3/sequence-number.h"
@@ -84,6 +83,12 @@ public:
 
   virtual void PktsAcked (Ptr<TcpSocketState> tcb, uint32_t packetsAcked,
                           const Time& rtt);
+
+  virtual void ExplicitRetransmit (Ptr<TcpSocketState> tcb, uint32_t bytesInFlight);
+
+  virtual void PktsAcked (Ptr<TcpSocketState> tcb, uint32_t packetsAcked,
+                          const Time& rtt);
+
 
   virtual Ptr<TcpCongestionOps> Fork ();
 

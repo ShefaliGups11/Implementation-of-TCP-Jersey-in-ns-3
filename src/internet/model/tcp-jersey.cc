@@ -31,7 +31,7 @@
  * US Department of Defense (DoD), and ITTC at The University of Kansas.
  */
 
-#include "tcp-westwood.h"
+#include "tcp-jersey.h"
 #include "ns3/log.h"
 #include "ns3/simulator.h"
 #include "rtt-estimator.h"
@@ -137,6 +137,22 @@ TcpJersey::GetSsThresh (Ptr<const TcpSocketState> tcb,
   uint32_t ownd = m_currentRTT.GetSeconds () * m_currentBW / tcb->m_segmentSize;
 
   return std::max (2*tcb->m_segmentSize , ownd);
+}
+
+void
+TcpJersey::RateControl (Ptr<TcpSocketState> tcb, uint32_t bytesInFlight)
+{
+  tcb->m_ssThresh = GetSsThresh (tcb, bytesInFlight);
+
+  if ((tcb->m_congState == TcpSocketState::CA_OPEN) || (tcb->m_congState == TcpSocketState::CA_DISORDER) || (tcb->m_congState == TcpSocketState::CA_CWR) || (tcb->m_congState == TcpSocketState::CA_RECOVERY) || (tcb->m_congState == TcpSocketState::CA_LOSS) || (tcb->m_congState == TcpSocketState::CA_LAST_STATE))
+    {
+      tcb->m_cWnd = tcb->m_ssThresh;
+    }
+}
+
+void
+TcpJersey::ExplicitRetransmit (Ptr<TcpSocketState> tcb, uint32_t bytesInFlight)
+{
 }
 
  Ptr<TcpCongestionOps>
